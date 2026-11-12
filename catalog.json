@@ -1,0 +1,19 @@
+{
+  "marketplace": {
+    "name": "mw-agent-tools",
+    "displayName": "mw agent tools",
+    "description": "Tools that keep coding agents working while you are away.",
+    "owner": { "name": "Matthew Watkins", "url": "https://github.com/matthewpwatkins" },
+    "repository": "https://github.com/matthewpwatkins/mw-agent-tools"
+  },
+  "plugins": [
+    {
+      "name": "keep-going",
+      "version": "0.1.0",
+      "description": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
+      "category": "Productivity",
+      "keywords": ["idle", "watchdog", "autonomy", "hooks"],
+      "hooks": { "codex": "./hooks/codex.json", "cursor": "./hooks/cursor.json" }
+    }
+  ]
+}

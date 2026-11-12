@@ -1,0 +1,26 @@
+{
+  "name": "keep-going",
+  "version": "0.1.0",
+  "description": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
+  "author": {
+    "name": "Matthew Watkins",
+    "url": "https://github.com/matthewpwatkins"
+  },
+  "repository": "https://github.com/matthewpwatkins/mw-agent-tools",
+  "license": "MIT",
+  "keywords": [
+    "idle",
+    "watchdog",
+    "autonomy",
+    "hooks"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/codex.json",
+  "interface": {
+    "displayName": "keep-going",
+    "shortDescription": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
+    "developerName": "Matthew Watkins",
+    "category": "Productivity",
+    "websiteURL": "https://github.com/matthewpwatkins/mw-agent-tools"
+  }
+}
