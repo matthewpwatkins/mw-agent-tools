@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "hooks": {
+    "Stop": [
+      { "type": "command", "bash": "node \"$PLUGIN_ROOT/scripts/keep-going.ts\" check", "timeoutSec": 10 }
+    ]
+  }
+}

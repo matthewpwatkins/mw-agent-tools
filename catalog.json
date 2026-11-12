@@ -13,7 +13,7 @@
       "description": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
       "category": "Productivity",
       "keywords": ["idle", "watchdog", "autonomy", "hooks"],
-      "hooks": { "codex": "./hooks/codex.json", "cursor": "./hooks/cursor.json" }
+      "hooks": { "codex": "./hooks/codex.json", "copilot": "./hooks/copilot.json", "cursor": "./hooks/cursor.json" }
     }
   ]
 }

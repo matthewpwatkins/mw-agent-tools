@@ -85,6 +85,31 @@ export function soundsLikeWaiting(message: string | undefined): boolean {
   return !!message && WAITING_PHRASES.test(message);
 }
 
+/**
+ * Last thing the agent said, for agents whose stop input leaves it out. Reads the transcript
+ * (one JSON event per line) and understands Claude ("assistant" with text parts) and Copilot
+ * ("assistant.message" with content). Returns undefined when it cannot tell.
+ */
+export function lastAssistantText(jsonl: string): string | undefined {
+  const lines = jsonl.trimEnd().split("\n");
+  for (let i = lines.length - 1; i >= 0; i--) {
+    let e: any;
+    try {
+      e = JSON.parse(lines[i]);
+    } catch {
+      continue;
+    }
+    if (e?.type === "assistant.message" && typeof e.data?.content === "string" && e.data.content.trim()) {
+      return e.data.content;
+    }
+    if (e?.type === "assistant" && Array.isArray(e.message?.content)) {
+      const text = e.message.content.filter((c: any) => c?.type === "text").map((c: any) => c.text).join("\n");
+      if (text.trim()) return text;
+    }
+  }
+  return undefined;
+}
+
 export type CheckResult = { block: false } | { block: true; reason: string };
 
 /**

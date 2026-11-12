@@ -10,6 +10,7 @@ import {
   check,
   DIR,
   hashItems,
+  lastAssistantText,
   mtimeMs,
   nudgeMessage,
   openItems,
@@ -58,6 +59,9 @@ async function runCheck(format: string): Promise<number> {
   const input = await readStdin();
   const cwd = input.cwd || process.cwd();
   if (!readConfig(cwd).enabled) return 0;
+  if (!input.last_assistant_message && input.transcript_path && existsSync(input.transcript_path)) {
+    input.last_assistant_message = lastAssistantText(readFileSync(input.transcript_path, "utf8"));
+  }
   const r = check(input, readWaiting(cwd));
   if (!r.block) return 0;
   const out = format === "cursor" ? { followup_message: r.reason } : { decision: "block", reason: r.reason };

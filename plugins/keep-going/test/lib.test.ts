@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import {
   afterNudge,
+  lastAssistantText,
   check,
   openItems,
   readConfig,
@@ -79,4 +80,19 @@ test("config is off by default, on after writeConfig, env overrides minutes", ()
   writeConfig(dir, { enabled: true, idleMinutes: 30, maxWaitMinutes: 50 });
   assert.deepEqual(readConfig(dir, {}), { enabled: true, idleMinutes: 30, maxWaitMinutes: 50 });
   assert.equal(readConfig(dir, { KEEP_GOING_IDLE_MINUTES: "5" }).idleMinutes, 5);
+});
+
+test("lastAssistantText reads Claude and Copilot transcripts", () => {
+  const claude = [
+    JSON.stringify({ type: "assistant", message: { content: [{ type: "text", text: "first" }] } }),
+    JSON.stringify({ type: "assistant", message: { content: [{ type: "tool_use" }, { type: "text", text: "waiting on CI" }] } }),
+    JSON.stringify({ type: "user", message: { content: "x" } }),
+  ].join("\n");
+  assert.equal(lastAssistantText(claude), "waiting on CI");
+  const copilot = [
+    JSON.stringify({ type: "assistant.message", data: { content: "OK" } }),
+    JSON.stringify({ type: "assistant.turn_end", data: {} }),
+  ].join("\n");
+  assert.equal(lastAssistantText(copilot), "OK");
+  assert.equal(lastAssistantText("not json\n"), undefined);
 });

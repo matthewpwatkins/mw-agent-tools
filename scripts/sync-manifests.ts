@@ -11,7 +11,7 @@ interface Plugin {
   description: string;
   category: string;
   keywords?: string[];
-  hooks?: { codex?: string; cursor?: string };
+  hooks?: { codex?: string; cursor?: string; copilot?: string };
 }
 interface Catalog {
   marketplace: {
@@ -82,6 +82,12 @@ export function render(catalog: Catalog): Record<string, unknown> {
         category: p.category,
         websiteURL: m.repository,
       },
+    };
+    // Copilot CLI reads this legacy location before .claude-plugin, so it gets its own hooks file.
+    files[`${dir}/.github/plugin/plugin.json`] = {
+      ...base,
+      skills: "./skills/",
+      ...(p.hooks?.copilot ? { hooks: p.hooks.copilot } : {}),
     };
     files[`${dir}/.cursor-plugin/plugin.json`] = {
       ...base,
