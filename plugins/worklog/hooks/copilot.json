@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "hooks": {
+    "SessionStart": [
+      { "type": "command", "bash": "node \"$PLUGIN_ROOT/scripts/remind.ts\"", "timeoutSec": 10 }
+    ]
+  }
+}

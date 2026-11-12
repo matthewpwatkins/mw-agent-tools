@@ -1,0 +1,16 @@
+{
+  "name": "worklog",
+  "version": "0.1.0",
+  "description": "Keeps a running log of milestones, decisions and status so you can see where things stand at any time.",
+  "author": {
+    "name": "Matthew Watkins",
+    "url": "https://github.com/matthewpwatkins"
+  },
+  "repository": "https://github.com/matthewpwatkins/mw-agent-tools",
+  "license": "MIT",
+  "keywords": [
+    "log",
+    "status",
+    "handoff"
+  ]
+}

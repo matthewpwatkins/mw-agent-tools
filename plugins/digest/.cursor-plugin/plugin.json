@@ -1,0 +1,17 @@
+{
+  "name": "digest",
+  "version": "0.1.0",
+  "description": "One-screen catch-up when you return: work items with status and progress, then what happened while you were away.",
+  "author": {
+    "name": "Matthew Watkins",
+    "url": "https://github.com/matthewpwatkins"
+  },
+  "repository": "https://github.com/matthewpwatkins/mw-agent-tools",
+  "license": "MIT",
+  "keywords": [
+    "digest",
+    "status",
+    "summary"
+  ],
+  "skills": "./skills/"
+}

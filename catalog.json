@@ -3,7 +3,10 @@
     "name": "mw-agent-tools",
     "displayName": "mw agent tools",
     "description": "Tools that keep coding agents working while you are away.",
-    "owner": { "name": "Matthew Watkins", "url": "https://github.com/matthewpwatkins" },
+    "owner": {
+      "name": "Matthew Watkins",
+      "url": "https://github.com/matthewpwatkins"
+    },
     "repository": "https://github.com/matthewpwatkins/mw-agent-tools"
   },
   "plugins": [
@@ -12,8 +15,54 @@
       "version": "0.1.0",
       "description": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
       "category": "Productivity",
-      "keywords": ["idle", "watchdog", "autonomy", "hooks"],
-      "hooks": { "codex": "./hooks/codex.json", "copilot": "./hooks/copilot.json", "cursor": "./hooks/cursor.json" }
+      "keywords": [
+        "idle",
+        "watchdog",
+        "autonomy",
+        "hooks"
+      ],
+      "hooks": {
+        "codex": "./hooks/codex.json",
+        "copilot": "./hooks/copilot.json",
+        "cursor": "./hooks/cursor.json"
+      }
+    },
+    {
+      "name": "autonomy",
+      "version": "0.1.0",
+      "description": "For when you step away: gathers every sign-in, approval and decision up front, then works on best judgement and logs each call with its undo path.",
+      "category": "Productivity",
+      "keywords": [
+        "autonomy",
+        "overnight",
+        "decisions"
+      ]
+    },
+    {
+      "name": "digest",
+      "version": "0.1.0",
+      "description": "One-screen catch-up when you return: work items with status and progress, then what happened while you were away.",
+      "category": "Productivity",
+      "keywords": [
+        "digest",
+        "status",
+        "summary"
+      ]
+    },
+    {
+      "name": "worklog",
+      "version": "0.1.0",
+      "description": "Keeps a running log of milestones, decisions and status so you can see where things stand at any time.",
+      "category": "Productivity",
+      "keywords": [
+        "log",
+        "status",
+        "handoff"
+      ],
+      "hooks": {
+        "codex": "./hooks/codex.json",
+        "copilot": "./hooks/copilot.json"
+      }
     }
   ]
 }
