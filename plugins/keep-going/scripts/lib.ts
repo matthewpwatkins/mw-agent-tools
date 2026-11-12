@@ -49,7 +49,9 @@ export function readConfig(cwd: string, env: NodeJS.ProcessEnv = process.env): C
   const idle = Number.isFinite(envIdle) && envIdle > 0 ? envIdle : Number(cfg.idleMinutes);
   const max = Number(env.KEEP_GOING_MAX_WAIT_MINUTES ?? cfg.maxWaitMinutes);
   return {
-    enabled: env.KEEP_GOING === "1" || cfg.enabled === true,
+    // On wherever installed, so every new project and worktree is covered without a setup step.
+    // Off only when this folder says so, or KEEP_GOING=0 turns it off everywhere.
+    enabled: env.KEEP_GOING === "0" ? false : env.KEEP_GOING === "1" || cfg.enabled !== false,
     idleMinutes: Number.isFinite(idle) && idle > 0 ? idle : DEFAULT_IDLE_MINUTES,
     maxWaitMinutes: Number.isFinite(max) && max > 0 ? max : DEFAULT_MAX_WAIT_MINUTES,
   };

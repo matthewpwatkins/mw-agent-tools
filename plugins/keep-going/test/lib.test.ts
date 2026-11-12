@@ -74,12 +74,16 @@ test("no wait ever exceeds the ceiling, so a session that parks after an hour id
   assert.equal(waitMinutes({ ...cfg, idleMinutes: 120 }, {}, "a"), 45);
 });
 
-test("config is off by default, on after writeConfig, env overrides minutes", () => {
+test("on by default in a fresh folder, off when the folder or environment says so", () => {
   const dir = mkdtempSync(join(tmpdir(), "kg-"));
-  assert.deepEqual(readConfig(dir, {}), { enabled: false, idleMinutes: 15, maxWaitMinutes: 45 });
+  assert.deepEqual(readConfig(dir, {}), { enabled: true, idleMinutes: 15, maxWaitMinutes: 45 });
+  assert.equal(readConfig(dir, { KEEP_GOING: "0" }).enabled, false);
   writeConfig(dir, { enabled: true, idleMinutes: 30, maxWaitMinutes: 50 });
   assert.deepEqual(readConfig(dir, {}), { enabled: true, idleMinutes: 30, maxWaitMinutes: 50 });
   assert.equal(readConfig(dir, { KEEP_GOING_IDLE_MINUTES: "5" }).idleMinutes, 5);
+  writeConfig(dir, { enabled: false, idleMinutes: 30, maxWaitMinutes: 50 });
+  assert.equal(readConfig(dir, {}).enabled, false);
+  assert.equal(readConfig(dir, { KEEP_GOING: "1" }).enabled, true);
 });
 
 test("lastAssistantText reads Claude and Copilot transcripts", () => {

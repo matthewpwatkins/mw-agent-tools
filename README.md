@@ -34,10 +34,12 @@ The idle wake relies on Claude Code's background hooks, which can wake a session
 
 ## keep-going in short
 
+On as soon as it is installed, in every project and worktree, with a 15 minute idle period. Nothing listed means nothing happens, so leaving it on costs nothing.
+
 ```
-/keep-going 20        on, nudge after 20 minutes idle
+/keep-going 20        nudge after 20 minutes idle in this project
 /keep-going status    what is pending
-/keep-going off
+/keep-going off       off in this project (KEEP_GOING=0 turns it off everywhere)
 ```
 
 While on, the agent keeps `.keep-going/waiting.md` listing what it waits on (`- [ ] deploy api | check: <command>`). When a turn ends:

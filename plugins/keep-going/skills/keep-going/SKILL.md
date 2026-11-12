@@ -10,6 +10,8 @@ Arguments: `$ARGUMENTS` (a number of idle minutes, `off`, or `status`; empty mea
 
 ## 1. Switch it
 
+It is already on wherever the plugin is installed (15 minute idle period). Use this only to change the idle period, turn it off in this project, or see what is pending. `KEEP_GOING=0` in the environment turns it off everywhere.
+
 The helper script sits two folders above this file, at `scripts/keep-going.ts` in the plugin root. Run it with Node 22.18 or later from the project folder:
 
 | Argument | Run |
@@ -20,7 +22,7 @@ The helper script sits two folders above this file, at `scripts/keep-going.ts` i
 
 Report the one line it prints. Suggest adding `.keep-going/` to `.gitignore` if it is not ignored.
 
-## 2. The rule while it is on
+## 2. The rule (always, unless switched off)
 
 **Never end a turn with work in flight without writing it down.** Before you stop, make `.keep-going/waiting.md` list every open thing you are waiting on, one line each:
 
