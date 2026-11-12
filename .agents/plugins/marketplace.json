@@ -1,0 +1,56 @@
+{
+  "name": "mw-agent-tools",
+  "interface": {
+    "displayName": "mw agent tools"
+  },
+  "plugins": [
+    {
+      "name": "keep-going",
+      "source": {
+        "source": "local",
+        "path": "./plugins/keep-going"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "autonomy",
+      "source": {
+        "source": "local",
+        "path": "./plugins/autonomy"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "digest",
+      "source": {
+        "source": "local",
+        "path": "./plugins/digest"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "worklog",
+      "source": {
+        "source": "local",
+        "path": "./plugins/worklog"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

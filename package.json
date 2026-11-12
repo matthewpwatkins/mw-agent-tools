@@ -1,0 +1,11 @@
+{
+  "name": "mw-agent-tools",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "test": "node --test --test-concurrency=2 \"plugins/*/test/*.test.ts\" \"test/*.test.ts\"",
+    "sync": "node scripts/sync-manifests.ts",
+    "e2e": "node e2e/claude-idle-wake.ts"
+  }
+}

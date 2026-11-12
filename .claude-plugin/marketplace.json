@@ -1,0 +1,61 @@
+{
+  "name": "mw-agent-tools",
+  "owner": {
+    "name": "Matthew Watkins",
+    "url": "https://github.com/matthewpwatkins"
+  },
+  "metadata": {
+    "description": "Tools that keep coding agents working while you are away."
+  },
+  "plugins": [
+    {
+      "name": "keep-going",
+      "source": "./plugins/keep-going",
+      "description": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": [
+        "idle",
+        "watchdog",
+        "autonomy",
+        "hooks"
+      ]
+    },
+    {
+      "name": "autonomy",
+      "source": "./plugins/autonomy",
+      "description": "For when you step away: gathers every sign-in, approval and decision up front, then works on best judgement and logs each call with its undo path.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": [
+        "autonomy",
+        "overnight",
+        "decisions"
+      ]
+    },
+    {
+      "name": "digest",
+      "source": "./plugins/digest",
+      "description": "One-screen catch-up when you return: work items with status and progress, then what happened while you were away.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": [
+        "digest",
+        "status",
+        "summary"
+      ]
+    },
+    {
+      "name": "worklog",
+      "source": "./plugins/worklog",
+      "description": "Keeps a running log of milestones, decisions and status so you can see where things stand at any time.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": [
+        "log",
+        "status",
+        "handoff"
+      ]
+    }
+  ]
+}

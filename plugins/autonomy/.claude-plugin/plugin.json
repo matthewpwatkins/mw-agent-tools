@@ -1,0 +1,16 @@
+{
+  "name": "autonomy",
+  "version": "0.1.0",
+  "description": "For when you step away: gathers every sign-in, approval and decision up front, then works on best judgement and logs each call with its undo path.",
+  "author": {
+    "name": "Matthew Watkins",
+    "url": "https://github.com/matthewpwatkins"
+  },
+  "repository": "https://github.com/matthewpwatkins/mw-agent-tools",
+  "license": "MIT",
+  "keywords": [
+    "autonomy",
+    "overnight",
+    "decisions"
+  ]
+}
