@@ -14,13 +14,17 @@
 MIN_MAJOR=22
 MIN_MINOR=18
 
-# ok <node>: true when <node> runs and is at least MIN_MAJOR.MIN_MINOR.
+# ok <node>: true when <node> runs and strips TypeScript types without a flag: 22.18 and later 22s, 23.6 on, 24 on.
 ok() {
     [ -x "$1" ] || return 1
     v=$("$1" -p 'process.versions.node' 2>/dev/null) || return 1
     major=${v%%.*}; rest=${v#*.}; minor=${rest%%.*}
     case "$major$minor" in '' | *[!0-9]*) return 1 ;; esac
-    [ "$major" -gt "$MIN_MAJOR" ] || { [ "$major" -eq "$MIN_MAJOR" ] && [ "$minor" -ge "$MIN_MINOR" ]; }
+    case "$major" in
+        "$MIN_MAJOR") [ "$minor" -ge "$MIN_MINOR" ] ;;
+        23) [ "$minor" -ge 6 ] ;;
+        *) [ "$major" -gt 23 ] ;;
+    esac
 }
 
 # newest <path>...: prints the paths that exist, one a line, highest version first.

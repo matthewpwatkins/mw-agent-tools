@@ -62,10 +62,23 @@ test("uses MW_AGENT_TOOLS_NODE first, and a suitable Node on PATH before version
   const { home, bin } = sandbox();
   try {
     fakeNode(join(home, ".nvm/versions/node/v26.0.0/bin/node"), "26.0.0");
-    fakeNode(join(bin, "node"), "23.0.0");
+    fakeNode(join(bin, "node"), "24.0.0");
     fakeNode(join(home, "pinned/node"), "22.20.0");
-    assert.equal(run(home, bin).out, "ran 23.0.0 hook.ts check");
+    assert.equal(run(home, bin).out, "ran 24.0.0 hook.ts check");
     assert.equal(run(home, bin, { MW_AGENT_TOOLS_NODE: join(home, "pinned/node") }).out, "ran 22.20.0 hook.ts check");
+  } finally {
+    rmSync(home, { recursive: true, force: true });
+  }
+});
+
+test("passes over Node 23 releases before 23.6, which cannot run TypeScript without a flag", () => {
+  const { home, bin } = sandbox();
+  try {
+    fakeNode(join(bin, "node"), "23.5.0");
+    fakeNode(join(home, ".nvm/versions/node/v22.18.0/bin/node"), "22.18.0");
+    assert.equal(run(home, bin).out, "ran 22.18.0 hook.ts check");
+    fakeNode(join(bin, "node"), "23.6.0");
+    assert.equal(run(home, bin).out, "ran 23.6.0 hook.ts check");
   } finally {
     rmSync(home, { recursive: true, force: true });
   }
