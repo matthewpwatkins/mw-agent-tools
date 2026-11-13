@@ -50,8 +50,10 @@ candidates() {
 find_node() {
     nl='
 '
+    # Listed before IFS changes: the list itself splits folder lists on spaces, the loop splits it on newlines.
+    list=$(candidates)
     old_ifs=$IFS; IFS=$nl
-    for n in $(candidates); do
+    for n in $list; do
         IFS=$old_ifs
         ok "$n" && { printf '%s\n' "$n"; return 0; }
     done

@@ -71,6 +71,16 @@ test("uses MW_AGENT_TOOLS_NODE first, and a suitable Node on PATH before version
   }
 });
 
+test("searches every system folder in the list, not just the first", () => {
+  const { home, bin } = sandbox();
+  try {
+    fakeNode(join(home, "sys2/node"), "22.19.0");
+    assert.equal(run(home, bin, { MW_AGENT_TOOLS_SYSTEM_DIRS: `${join(home, "sys1")} ${join(home, "sys2")}` }).out, "ran 22.19.0 hook.ts check");
+  } finally {
+    rmSync(home, { recursive: true, force: true });
+  }
+});
+
 test("says once when no suitable Node exists, then again only after one was found", () => {
   const { home, bin } = sandbox();
   try {
