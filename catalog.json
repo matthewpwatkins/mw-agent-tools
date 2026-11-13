@@ -12,7 +12,7 @@
   "plugins": [
     {
       "name": "keep-going",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
       "category": "Productivity",
       "keywords": [
@@ -51,7 +51,7 @@
     },
     {
       "name": "worklog",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Keeps a running log of milestones, decisions and status so you can see where things stand at any time.",
       "category": "Productivity",
       "keywords": [

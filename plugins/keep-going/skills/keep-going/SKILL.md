@@ -12,13 +12,13 @@ Arguments: `$ARGUMENTS` (a number of idle minutes, `off`, or `status`; empty mea
 
 It is already on wherever the plugin is installed (15 minute idle period). Use this only to change the idle period, turn it off in this project, or see what is pending. `KEEP_GOING=0` in the environment turns it off everywhere.
 
-The helper script sits two folders above this file, at `scripts/keep-going.ts` in the plugin root. Run it with Node 22.18 or later from the project folder:
+The helper script sits two folders above this file, at `scripts/keep-going.ts` in the plugin root. Run it from the project folder through `scripts/node.sh` beside it, which finds Node 22.18 or later even when it is not on PATH:
 
 | Argument | Run |
 |---|---|
-| empty or a number | `node <plugin root>/scripts/keep-going.ts on <minutes>` |
-| `off` | `node <plugin root>/scripts/keep-going.ts off` |
-| `status` | `node <plugin root>/scripts/keep-going.ts status` |
+| empty or a number | `sh <plugin root>/scripts/node.sh <plugin root>/scripts/keep-going.ts on <minutes>` |
+| `off` | `sh <plugin root>/scripts/node.sh <plugin root>/scripts/keep-going.ts off` |
+| `status` | `sh <plugin root>/scripts/node.sh <plugin root>/scripts/keep-going.ts status` |
 
 Report the one line it prints. Suggest adding `.keep-going/` to `.gitignore` if it is not ignored.
 

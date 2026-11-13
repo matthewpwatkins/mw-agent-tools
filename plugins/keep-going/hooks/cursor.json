@@ -2,7 +2,7 @@
   "version": 1,
   "hooks": {
     "stop": [
-      { "command": "node \"${CURSOR_PLUGIN_ROOT}/scripts/keep-going.ts\" check --format cursor" }
+      { "command": "sh \"${CURSOR_PLUGIN_ROOT}/scripts/node.sh\" \"${CURSOR_PLUGIN_ROOT}/scripts/keep-going.ts\" check --format cursor" }
     ]
   }
 }
