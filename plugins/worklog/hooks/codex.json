@@ -1,7 +1,7 @@
 {
   "hooks": {
     "SessionStart": [
-      { "hooks": [ { "type": "command", "command": "node \"$PLUGIN_ROOT/scripts/remind.ts\"", "timeout": 10 } ] }
+      { "hooks": [ { "type": "command", "command": "sh \"$PLUGIN_ROOT/scripts/node.sh\" \"$PLUGIN_ROOT/scripts/remind.ts\"", "timeout": 10 } ] }
     ]
   }
 }

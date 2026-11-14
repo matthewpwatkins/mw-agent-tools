@@ -3,7 +3,7 @@
     "Stop": [
       {
         "hooks": [
-          { "type": "command", "command": "node \"$PLUGIN_ROOT/scripts/keep-going.ts\" check", "timeout": 10 }
+          { "type": "command", "command": "sh \"$PLUGIN_ROOT/scripts/node.sh\" \"$PLUGIN_ROOT/scripts/keep-going.ts\" check", "timeout": 10 }
         ]
       }
     ]

@@ -19,7 +19,7 @@ Tools that keep coding agents working while you are away. Claude Code plugin fir
 | Cursor | Add the repository as a plugin marketplace, then install the plugins |
 | OpenCode, and any agent that reads Agent Skills | Copy `plugins/<tool>/skills/<tool>` into `.agents/skills/` (project) or `~/.agents/skills/` (personal) |
 
-Hook scripts need Node 22.18 or later.
+Hook scripts need Node 22.18 or later. It does not have to be on PATH: hooks look in nvm, fnm, volta, asdf, mise and Homebrew too, or use `MW_AGENT_TOOLS_NODE` if set, and say once when none is found.
 
 ## What works where
 

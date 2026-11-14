@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Generates every agent's plugin and marketplace manifests from catalog.json, the one source of truth.
-//   node scripts/sync-manifests.ts          write them
+//   node scripts/sync-manifests.ts          write them (and copy scripts/node.sh into each plugin with hooks)
 //   node scripts/sync-manifests.ts --check  exit 1 if any are out of date (used by the tests)
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -113,6 +113,16 @@ function main(): number {
       mkdirSync(dirname(path), { recursive: true });
       writeFileSync(path, text);
     }
+  }
+  // Each plugin with hooks installs on its own, so each carries its own copy of the Node finder.
+  const finder = readFileSync(join(root, "scripts/node.sh"), "utf8");
+  for (const p of catalog.plugins) {
+    if (!existsSync(join(root, "plugins", p.name, "hooks"))) continue;
+    const rel = `plugins/${p.name}/scripts/node.sh`;
+    const path = join(root, rel);
+    if ((existsSync(path) ? readFileSync(path, "utf8") : "") === finder) continue;
+    stale.push(rel);
+    if (!checkOnly) writeFileSync(path, finder, { mode: 0o755 });
   }
   if (checkOnly && stale.length) {
     console.error(`out of date, run: npm run sync\n${stale.join("\n")}`);
