@@ -12,7 +12,7 @@
   "plugins": [
     {
       "name": "keep-going",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Wakes an idle agent session when work is still pending, at no model cost when nothing is.",
       "category": "Productivity",
       "keywords": [
