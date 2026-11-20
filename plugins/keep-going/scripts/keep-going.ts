@@ -11,7 +11,7 @@ import {
   DIR,
   hashItems,
   lastAssistantText,
-  mtimeMs,
+  lastMessageId,
   nudgeMessage,
   openItems,
   readConfig,
@@ -84,14 +84,14 @@ async function runWatch(): Promise<number> {
 
   const pollMs = Number(process.env.KEEP_GOING_POLL_SECONDS || 15) * 1000;
   await sleep(Math.min(pollMs, 2000)); // let the transcript settle after the stop
-  const baseline = mtimeMs(input.transcript_path);
+  const baseline = lastMessageId(input.transcript_path);
   const waitMs = waitMinutes(cfg, state, hashItems(pending)) * 60_000;
   const started = Date.now();
 
   while (Date.now() - started < waitMs) {
     await sleep(Math.min(pollMs, waitMs - (Date.now() - started)));
     if (loadState(path).token !== token) return 0; // a newer stop owns the watch
-    if (mtimeMs(input.transcript_path) > baseline) return 0; // the session moved on by itself
+    if (lastMessageId(input.transcript_path) !== baseline) return 0; // the session moved on by itself
   }
 
   const items = openItems(readWaiting(cwd));

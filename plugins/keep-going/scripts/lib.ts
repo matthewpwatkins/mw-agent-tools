@@ -1,6 +1,6 @@
 // Shared logic for keep-going. Pure functions here; I/O lives in keep-going.ts.
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { closeSync, existsSync, fstatSync, mkdirSync, openSync, readFileSync, readSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 export const DIR = ".keep-going";
@@ -169,4 +169,45 @@ export function mtimeMs(path: string | undefined): number {
   } catch {
     return 0;
   }
+}
+
+/**
+ * Id of the newest message in the conversation (a user or assistant entry), or "" when none can be read.
+ * The watch compares this, not the file's modification time: after every stop Claude writes its own bookkeeping to the file
+ * (hook summaries, turn timing), and slower stop hooks write it later still. Those writes are not the session moving on, and
+ * read as such they made the watch give up every time, so an idle session was never woken.
+ */
+export function lastMessageId(path: string | undefined): string {
+  if (!path) return "";
+  try {
+    const fd = openSync(path, "r");
+    try {
+      const size = fstatSync(fd).size;
+      const len = Math.min(size, 2 * 1024 * 1024);
+      const buf = Buffer.alloc(len);
+      readSync(fd, buf, 0, len, size - len);
+      return newestMessageId(buf.toString("utf8"));
+    } finally {
+      closeSync(fd);
+    }
+  } catch {
+    return "";
+  }
+}
+
+/** newest user or assistant entry in transcript text (one JSON event per line); a cut-off first line is skipped. */
+export function newestMessageId(jsonl: string): string {
+  const lines = jsonl.trimEnd().split("\n");
+  for (let i = lines.length - 1; i >= 0; i--) {
+    let e: any;
+    try {
+      e = JSON.parse(lines[i]);
+    } catch {
+      continue;
+    }
+    if (e?.type === "user" || e?.type === "assistant" || e?.type === "assistant.message" || e?.type === "user.message") {
+      return String(e.uuid ?? e.id ?? `${e.timestamp ?? ""}:${lines.length - i}`);
+    }
+  }
+  return "";
 }

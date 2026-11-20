@@ -6,6 +6,7 @@ import { test } from "node:test";
 import {
   afterNudge,
   lastAssistantText,
+  newestMessageId,
   check,
   openItems,
   readConfig,
@@ -99,4 +100,20 @@ test("lastAssistantText reads Claude and Copilot transcripts", () => {
   ].join("\n");
   assert.equal(lastAssistantText(copilot), "OK");
   assert.equal(lastAssistantText("not json\n"), undefined);
+});
+
+test("newestMessageId ignores the bookkeeping Claude writes after a stop", () => {
+  const msg = JSON.stringify({ type: "assistant", uuid: "a1", message: { content: [{ type: "text", text: "WAITING" }] } });
+  const after = [
+    JSON.stringify({ type: "system", subtype: "stop_hook_summary" }),
+    JSON.stringify({ type: "system", subtype: "turn_duration" }),
+    JSON.stringify({ type: "attachment" }),
+    JSON.stringify({ type: "queue-operation" }),
+    "{cut off",
+  ];
+  assert.equal(newestMessageId([msg, ...after].join("\n")), "a1");
+  assert.equal(newestMessageId(msg), newestMessageId([msg, ...after].join("\n")));
+  const next = JSON.stringify({ type: "user", uuid: "u2", message: { content: "wake up" } });
+  assert.equal(newestMessageId([msg, ...after, next].join("\n")), "u2");
+  assert.equal(newestMessageId(""), "");
 });
